@@ -1,6 +1,5 @@
 import Container from 'react-bootstrap/Container';
 
-import './../../styling/HomePageStyling.css';
 
 
 export default function HomePageBody() {
