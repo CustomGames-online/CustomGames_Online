@@ -12,7 +12,7 @@ export default function HomePageHeader() {
                 <Row className="homepage-header-div-row-one" >
                     <Col className="homepage-header-div-row-one-col" >
                         <Navbar.Brand href="/" className="homepage-header-div-row-one-col-brand" >
-                            <img src={headerLogo} />
+                            <img src={headerLogo} alt="logo"/>
                             <h1><b>CustomGameShack</b></h1>
                         </Navbar.Brand>
                     </Col>
@@ -20,7 +20,6 @@ export default function HomePageHeader() {
                 <Row className="homepage-header-div-row-two" >
                     <Col className="homepage-header-div-row-two-col" >
                         <Navbar.Brand href="/login" className="homepage-header-div-row-two-col-brand" >
-                            {/* <img src={headerLogo} /> */}
                             <h5>Sign Up/Sign In</h5>
                         </Navbar.Brand>
                     </Col>

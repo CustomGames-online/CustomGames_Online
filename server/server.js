@@ -16,7 +16,7 @@ const db = knex({
 });
 
 const app = express();
-const port = process.env.PORT;
+const port = 3010;
 
 app.use(bodyParser.json());
 app.use(cors());
@@ -33,6 +33,6 @@ app.get("/profile/:id", (req, res) => {
     profile.handleProfile(req, res, db);
 });
 
-app.listen(port || 3000, () =>
+app.listen(port || '3010', () =>
     console.log(`Example app listening on port ${port}!`)
 );
