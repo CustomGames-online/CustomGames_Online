@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid';
 import Connect4 from './connect4.js';
 import Checkers from './checkers.js';
-import Chess from './Chess.js';
+import Chess from './chess.js';
 
 export const gameTypes = {
   Connect4: 'connect4',

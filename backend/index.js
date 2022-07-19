@@ -7,7 +7,7 @@ import {
   updateGame,
   deleteGameByPlayer,
 } from './db.js';
-import Game from './Game.js';
+import Game from './game.js';
 import { Server } from 'socket.io';
 
 const app = express();
@@ -56,6 +56,6 @@ io.on('connection', (socket) => {
   });
 });
 
-server.listen(3001, () => {
-  console.log('listening on *:3001');
+server.listen(3011, () => {
+  console.log('listening on *:3011');
 });
