@@ -4,18 +4,31 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import Modal from 'react-bootstrap/Modal';
 import { Navigate } from 'react-router-dom';
 
 
 export default function LoginBody() {
 
+  const [code, setCode] = useState();
+  const [forgotcode, setForgotCode] = useState();
+  const [newpassword, setNewPassword] = useState();
+  const [forgotemail, setForgotEmail] = useState();
+  const [show, setShow] = useState(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginemail, setLoginEmail] = useState('');
   const [loginpass, setLoginPass] = useState('');
   const [navigate, setNavigate] = useState(false);
-    
+  const [failedlogin, setFailedLogin] = useState(false);
+  const [resetSucceeded, setResetSucceeded] = useState(false);
+  const [resetFailed, setResetFailed] = useState(false);
+
+ var random = () => {
+    return Math.floor(Math.random() * (10000 - 1000 + 1)) + 1000;
+  }
+  
 
   const handleRegisterSubmit = (e) => {
     e.preventDefault();
@@ -50,9 +63,65 @@ export default function LoginBody() {
     }).then((res) => {
       return res.json();
     }).then((result) => {
-        if( result === 'matched' ) 
+      console.log(result['message'])
+        if( result['message'] === 'matched' ) {
           setNavigate(true);
+          setFailedLogin(false);
+        } else {
+          setFailedLogin(true);
+        }
     })
+  }
+
+  const handleForgotSubmit = (e) => {
+    e.preventDefault();
+
+    setCode(random);
+    console.log( code );
+
+
+    fetch('http://customgames.online/api_send', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        "email": forgotemail,
+        "code": code
+      })
+    }).then((res) => {
+      return res.json();
+    })
+    .then((result) => {
+      console.log(result['message']);
+    });
+    
+  }
+
+  const handleNewPassword = (e) => {
+    e.preventDefault();
+    
+    console.log( forgotcode , code );
+    if ( forgotcode === code ) {
+      fetch('http://customgames.online/api_reset', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          "email": forgotemail,
+          "password": newpassword
+        })
+      }).then((res) => {
+        return res.json();
+      })
+      .then((result) => {
+        console.log(result['message']);
+        setResetSucceeded(true);
+      });
+    } else {
+      setResetFailed(true);
+    }
   }
 
   return (
@@ -72,13 +141,60 @@ export default function LoginBody() {
               <Form.Label>Password</Form.Label>
               <Form.Control type="password" name="password" placeholder="Password" as='input' onChange = {(e) => setLoginPass(e.target.value)} value = {loginpass}  />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicCheckbox">
-              <Form.Check type="checkbox" label="Remember Me" />
-            </Form.Group>
             <Button variant="primary" type="submit" as='button'>
               Login
             </Button>
           </Form>
+          {failedlogin && (
+            <p>Incorrect Email or Password!</p>
+          )}
+          <Button variant="primary" onClick={() => setShow(!(show))}>
+            Forgot Password?
+          </Button>
+          <Modal show={show} onHide={() => setShow(!(show))} className="loginpage-body-container-row-one-col-one-modal">
+            <Modal.Header closeButton>
+              <Modal.Title>Forgot Password?</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Form className="loginpage-body-container-row-one-col-two-form" as="form" onSubmit={handleForgotSubmit}  >
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Email address</Form.Label>
+                  <Form.Control type="email" name="email" placeholder="Enter email" as='input' onChange = {(e) => setForgotEmail(e.target.value)} value = {forgotemail}/>
+                </Form.Group>
+                <Button variant="primary" type="submit" as='button'>
+                  Send Email
+                </Button>
+              </Form>
+              <Form className="loginpage-body-container-row-one-col-two-form-two" as="form" onSubmit={handleNewPassword}  >
+                <Form.Group className="mb-3" controlId="formBasicEmail" >
+                  <Form.Label>
+                    Code
+                  </Form.Label>
+                  <Form.Control type="text" name="forgotcode" placeholder="Enter Code" as='input' onChange = {(e) => setForgotCode(e.target.value)} value = {forgotcode}/>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicPassword" >
+                  <Form.Label>
+                    New Password
+                  </Form.Label>
+                  <Form.Control type="text" name="forgotcode" placeholder="Enter New Password" as='input' onChange = {(e) => setNewPassword(e.target.value)} value = {newpassword}/>
+                </Form.Group>
+                <Button variant="primary" type="submit" as='button'>
+                  Reset Password
+                </Button>
+              </Form>
+              {resetSucceeded && (
+                <p>Password Successfully Changed</p>
+              )}
+              {resetFailed && (
+                <p>Code Incorrect!</p>
+              )}
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={() => setShow(!(show))}>
+                Close
+              </Button>
+            </Modal.Footer>
+          </Modal>
         </Col>
         <Col sm={6} className="loginpage-body-container-row-one-col-two">
           <h1>SignUp</h1>
