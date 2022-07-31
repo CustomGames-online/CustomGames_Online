@@ -4,7 +4,6 @@ const bodyParser = require('body-parser')
 const { Client } = require('pg');
 const sgMail = require('@sendgrid/mail')
 const cors = require('cors');
-sgMail.setApiKey('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');
 
 const client = new Client({
   user: 'postgres', 
@@ -49,7 +48,7 @@ app.post("/_register", (req, res) => {
 
 app.post("/_send", (req,res) => {
 
-  var account = false;
+  var code = "12345";
   var conn_string = `SELECT email FROM user_info WHERE email='${req.body.email}';`;
   
   client.query(conn_string, (err, res_) => {
@@ -62,9 +61,9 @@ app.post("/_send", (req,res) => {
           to: `${req.body.email}`, // Change to your recipient
           from: 'kamol.nazarov15@myhunter.cuny.edu', // Change to your verified sender
           subject: 'Reset Password Code',
-          text: `This is your code - ${req.body.code}`,
+          text: `This is your code - ${code}`,
           html: `<h1>Custom Games Onlines</h1>
-                <strong>This is your code - ${req.body.code}</strong>`,
+                <strong>This is your code - 12345</strong>`,
         }
         
         sgMail
@@ -80,23 +79,53 @@ app.post("/_send", (req,res) => {
       }
     }
       
-  })  
+  });
+
+  conn_string = `INSERT INTO forgot_password_codes VALUES('${req.body.email}', '${code}')`;
+
+  client.query(conn_string, (err, res_) => {
+    if (err) {
+      console.log('failed to insert forgot code...');
+      console.log(err);
+    } else {
+      console.log('inserted forgot code..');
+    }
+  })
 
 });
 
 app.post("/_reset", (req,res) => {
-  bcrypt.genSalt(saltRounds, function(err, salt) {
-    bcrypt.hash(req.body.password, salt, function(err, hash) {
-      var conn_string = `UPDATE user_info SET hash_key = '${hash}' where email = '${req.body.email}';`;
 
-      client.query(conn_string, (err, res_) => {
-        if (err) 
-          res.json({ message: err });
-        else
-          res.json({ message: "done!" });
-      })
+  var conn_string = `SELECT code FROM forgot_password_codes WHERE email=${req.body};`;
+  var matches = false;
+  client.query(conn_string, (err, res_) => {
+    if (err) 
+      res.json({ message: err });
+    else {
+      if (req.body.code === res_.rows[0]) {
+        matches = true;
+      }
+    }
+     
+  })
+
+  if ( matches ) {
+    bcrypt.genSalt(saltRounds, function(err, salt) {
+      bcrypt.hash(req.body.password, salt, function(err, hash) {
+        var conn_string = `UPDATE user_info SET hash_key = '${hash}' where email = '${req.body.email}';`;
+  
+        client.query(conn_string, (err, res_) => {
+          if (err) 
+            res.json({ message: err });
+          else
+            res.json({ message: "password changed" });
+        })
+      });
     });
-  });
+  } else {
+    res.json({ message: "password does not match" });
+  }
+
 })
 
 app.post("/_login", (req,res) => {

@@ -10,7 +10,6 @@ import { Navigate } from 'react-router-dom';
 
 export default function LoginBody() {
 
-  const [code, setCode] = useState();
   const [forgotcode, setForgotCode] = useState();
   const [newpassword, setNewPassword] = useState();
   const [forgotemail, setForgotEmail] = useState();
@@ -24,11 +23,6 @@ export default function LoginBody() {
   const [failedlogin, setFailedLogin] = useState(false);
   const [resetSucceeded, setResetSucceeded] = useState(false);
   const [resetFailed, setResetFailed] = useState(false);
-
- var random = () => {
-    return Math.floor(Math.random() * (10000 - 1000 + 1)) + 1000;
-  }
-  
 
   const handleRegisterSubmit = (e) => {
     e.preventDefault();
@@ -76,18 +70,13 @@ export default function LoginBody() {
   const handleForgotSubmit = (e) => {
     e.preventDefault();
 
-    setCode(random);
-    console.log( code );
-
-
     fetch('http://customgames.online/api_send', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        "email": forgotemail,
-        "code": code
+        "email": forgotemail
       })
     }).then((res) => {
       return res.json();
@@ -100,28 +89,30 @@ export default function LoginBody() {
 
   const handleNewPassword = (e) => {
     e.preventDefault();
-    
-    console.log( forgotcode , code );
-    if ( forgotcode === code ) {
-      fetch('http://customgames.online/api_reset', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          "email": forgotemail,
-          "password": newpassword
-        })
-      }).then((res) => {
-        return res.json();
+  
+    fetch('http://customgames.online/api_reset', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        "email": forgotemail,
+        "password": newpassword,
+        "code": forgotcode
       })
-      .then((result) => {
-        console.log(result['message']);
-        setResetSucceeded(true);
-      });
-    } else {
-      setResetFailed(true);
-    }
+    })
+    .then((res) => {
+      return res.json();
+    })
+    .then((result) => {
+      if( result['message'] === 'password changed' ) {
+        setResetSucceeded(true)
+        setResetFailed(false)
+      } else {
+        setResetFailed(true);
+        setResetSucceeded(false);
+      }
+    });
   }
 
   return (
