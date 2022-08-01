@@ -1,0 +1,115 @@
+* {
+    font-family: 'Anek Malayalam', sans-serif;
+}
+
+/* homepage header */
+
+.homepage-header-div {
+    width: 100vw !important;
+}
+
+.homepage-header-div-row-one {
+    border-bottom: 1px solid grey;
+}
+
+.homepage-header-div-row-one-col {
+    background-color: #BA635D;
+    text-align: center;
+}
+
+.homepage-header-div-row-one-col-brand > h1 {
+    display: inline-flex;
+    font-size: 80px;
+    color: black;
+}
+
+.homepage-header-div-row-one-col-brand > img {
+    height: 95px;
+    width: 95px;
+    margin-top: -35px;
+}
+
+.homepage-header-div-row-two {
+    border-bottom: 1px solid grey;
+}
+
+.homepage-header-div-row-two-col-brand {
+    text-align: center;
+}
+
+.homepage-header-div-row-two-col-brand > h5 {
+    margin-bottom: -25px;
+    margin-top: 5px;
+    margin-left: 630px;
+}
+
+/* homepage body */
+.homepage-body-container-row-one-col {
+    border: .5px solid black;
+}
+.homepage-body-container-row-one-col-carousel {
+    height: 700px;
+}
+
+h3 {
+    color: black;
+}
+
+.homepage-body-container-row-two-col {
+    text-align: center;
+    border-top: .5px black solid;
+    border-bottom: .5px black solid;
+    background-color: #DBCBD8;
+    border-left: .5px black solid;
+    border-right: .5px black solid;
+}
+
+.homepage-body-container-row-two-col > h1 {
+    margin-top: 80px;
+}
+
+.homepage-body-continer-row-two-col-button {
+    margin-bottom: 70px;
+}
+
+/* homepage footer */
+.homepage-footer-container-row-one-col {
+    text-align: center;
+    background-color: #101935;
+}
+
+.homepage-footer-container-row-one-col > h4 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: white;
+}
+
+/* login page body */
+
+.loginpage-body-container-row-one-col-one {
+    text-align: center;
+    border: .5px black solid;
+}
+
+.loginpage-body-container-row-one-col-two {
+    text-align: center;
+    border: .5px black solid;
+}
+
+.loginpage-body-container-row-one-col-one > h1 {
+    margin-top: 30px;
+}
+
+.loginpage-body-container-row-one-col-one-form {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.loginpage-body-container-row-one-col-two > h1 {
+    margin-top: 30px;
+}
+
+.loginpage-body-container-row-one-col-two-form {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
