@@ -1,18 +1,17 @@
-import React from "react";
+import React, { Component } from "react";
 
-import LoginHeader from './components/LoginHeader';
 import LoginBody from "./components/LoginBody";
-import LoginFooter from "./components/LoginFooter";
+import LoginFooter from './components/LoginFooter';
 
-export default class Login extends React.Component {
+class Login extends Component {
+  
   render() {
-
-    return(
-      <div>
-        <LoginHeader />
+    return (
+      <div className="container">
         <LoginBody />
         <LoginFooter />
       </div>
     );
   }
 }
+export default Login;

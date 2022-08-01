@@ -5,7 +5,9 @@ import ListGroup from 'react-bootstrap/ListGroup';
 
 import './../../styling/GeneralStyling.css'
 
+
 export default function GameLobbyBody() {
+
     return (
         <div className="gamelobby-body-div" >
             <Row className="gamelobby-body-div-row-one" >

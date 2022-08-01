@@ -37,9 +37,17 @@ export default function LoginBody() {
         "email": email,
         "password": password
       })
+    }).then((res) => {
+      return res.json();
+    }).then((result) => {
+      localStorage.setItem("token", result["token"]);
+      localStorage.setItem("local_name", name);
+      localStorage.setItem("local_email", email);
+      localStorage.setItem("local_level", "0");
+      localStorage.setItem("local_xp", "0");
+      setNavigate(true);
     })
 
-    setNavigate(true);
   }
 
   const handleLoginSubmit = (e) => {
@@ -61,6 +69,7 @@ export default function LoginBody() {
         if( result['message'] === 'matched' ) {
           setNavigate(true);
           setFailedLogin(false);
+          localStorage.setItem("token", result['token']);
         } else {
           setFailedLogin(true);
         }

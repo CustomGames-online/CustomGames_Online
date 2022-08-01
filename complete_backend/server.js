@@ -4,6 +4,10 @@ const bodyParser = require('body-parser')
 const { Client } = require('pg');
 const sgMail = require('@sendgrid/mail')
 const cors = require('cors');
+const dotenv = require('dotenv');
+const jwt = require('jsonwebtoken');
+
+dotenv.config();
 
 const client = new Client({
   user: 'postgres', 
@@ -24,12 +28,32 @@ app.use(bodyParser.json());
 
 
 app.get("/", (req, res) => {
-    res.json({ message: "Hello from ser!" });
+  res.send('welcome to my api');
 });
+
+app.post("/_validate", (req,res) => {
+  let jwtSecretKey = 'customgames';
+
+  try {
+    const token = req.body.token;
+
+    const verified = jwt.verify(token, jwtSecretKey);
+    if(verified){
+        return res.json({ message: "validated"});
+    }else{
+        // Access Denied
+        return res.status(401).send(error);
+    }
+    } catch (error) {
+        // Access Denied
+        return res.status(401).send(error);
+    }
+})
 
 app.post("/_register", (req, res) => {
 
   const saltRounds = 5;
+  let token = '';
 
   bcrypt.genSalt(saltRounds, function(err, salt) {
     bcrypt.hash(req.body.password, salt, function(err, hash) {
@@ -38,12 +62,55 @@ app.post("/_register", (req, res) => {
       client.query(conn_string, (err, res_) => {
         if (err) 
           res.json({ message: err });
-        else
-          res.json({ message: "done!" });
+        else{
+          let jwtSecretKey = 'customgames';
+          let data = {
+              time: Date(),
+              userId: 12,
+          }
+
+          token = jwt.sign(data, jwtSecretKey);
+          res.json({ message: "done!", token: token });
+        }
       })
     });
   });
 
+})
+
+app.post("/_login", (req,res) => {
+  let token = false;
+  console.log(req.body);
+  var conn_string = `SELECT * from user_info where email = '${req.body.email}';`;
+  client.query(conn_string, (err, res_) => {
+    if (err) 
+      res.json({ message: "not_matched" })
+    else {
+      if (res_.rows.length > 0) {
+        var result = res_.rows[0];
+        var pass = result['hash_key'];
+        bcrypt.genSalt(5, function(err, salt) {
+          bcrypt.hash(req.body.password, salt, function(err, hash) {
+            
+            if ( hash === pass ) {
+              let jwtSecretKey = 'customgames';
+              let data = {
+                  time: Date(),
+                  userId: 12,
+              }
+
+              token = jwt.sign(data, jwtSecretKey);
+              res.json({ message: "matched", token: token, user_info: result });
+            } else
+              res.json({ message: "not_matched" });
+          })
+        })
+      } else {
+        res.json({ message: "not_matched"});
+      }
+;
+    };
+  })
 })
 
 app.post("/_send", (req,res) => {
@@ -128,32 +195,7 @@ app.post("/_reset", (req,res) => {
 
 })
 
-app.post("/_login", (req,res) => {
-  console.log(req.body);
-  var conn_string = `SELECT hash_key, user_name, email from user_info where email = '${req.body.email}';`;
-  client.query(conn_string, (err, res_) => {
-    if (err) 
-      res.json({ message: "not_matched" })
-    else {
-      if (res_.rows.length > 0) {
-        var result = res_.rows[0];
-        var pass = result['hash_key'];
-        bcrypt.genSalt(5, function(err, salt) {
-          bcrypt.hash(req.body.password, salt, function(err, hash) {
-            
-            if ( hash === pass )
-              res.json({ message: "matched" });
-            else
-              res.json({ message: "not_matched" });
-          })
-        })
-      } else {
-        res.json({ message: "not_matched"});
-      }
-;
-    };
-  })
-})
+
 
 
 
