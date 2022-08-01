@@ -53,6 +53,9 @@ export default function LoginBody() {
   const handleLoginSubmit = (e) => {
     e.preventDefault();
 
+    console.log( loginemail );
+    console.log( loginpass );
+
     fetch('http://customgames.online/api_login', {
       method: 'POST',
       headers: {
@@ -62,14 +65,19 @@ export default function LoginBody() {
         "email": loginemail,
         "password": loginpass
       })
-    }).then((res) => {
+    })
+    .then((res) => {
       return res.json();
-    }).then((result) => {
+    })
+    .then((result) => {
       console.log(result['message'])
         if( result['message'] === 'matched' ) {
+          localStorage.setItem("token", result["token"]);
+          localStorage.setItem("local_name", name);
+          localStorage.setItem("local_email", email);
+          localStorage.setItem("local_level", "0");
+          localStorage.setItem("local_xp", "0");
           setNavigate(true);
-          setFailedLogin(false);
-          localStorage.setItem("token", result['token']);
         } else {
           setFailedLogin(true);
         }

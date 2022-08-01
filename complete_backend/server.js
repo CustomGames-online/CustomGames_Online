@@ -52,10 +52,9 @@ app.post("/_validate", (req,res) => {
 
 app.post("/_register", (req, res) => {
 
-  const saltRounds = 5;
   let token = '';
 
-  bcrypt.genSalt(saltRounds, function(err, salt) {
+  bcrypt.genSalt(5, function(err, salt) {
     bcrypt.hash(req.body.password, salt, function(err, hash) {
       var conn_string = `INSERT INTO user_info(hash_key, user_name, email) values ('${hash}', '${req.body.name}', '${req.body.email}');`;
 
@@ -88,25 +87,10 @@ app.post("/_login", (req,res) => {
     else {
       if (res_.rows.length > 0) {
         var result = res_.rows[0];
-        var pass = result['hash_key'];
-        bcrypt.genSalt(5, function(err, salt) {
-          bcrypt.hash(req.body.password, salt, function(err, hash) {
-            
-            if ( hash === pass ) {
-              let jwtSecretKey = 'customgames';
-              let data = {
-                  time: Date(),
-                  userId: 12,
-              }
-
-              token = jwt.sign(data, jwtSecretKey);
-              res.json({ message: "matched", token: token, user_info: result });
-            } else
-              res.json({ message: "not_matched" });
-          })
+        var stored_hash = result['hash_key'];
+        bcrypt.compare(req.body.password, stored_hash, (err, result) => {
+          res.json({ message: "matched", token: stored_hash })
         })
-      } else {
-        res.json({ message: "not_matched"});
       }
 ;
     };

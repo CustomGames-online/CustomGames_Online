@@ -3,11 +3,16 @@ import Col from 'react-bootstrap/Col';
 import Navbar from 'react-bootstrap/Navbar';
 import { Link } from 'react-router-dom';
 
+
 import headerLogo from './../../assets/header_logo.svg';
 
 import './../../styling/GeneralStyling.css';
 
 export default function HomePageHeader() {
+
+    const login = true;
+    const logout = true;
+
     return(
         <div className="homepage-header-div" >
                 <Row className="homepage-header-div-row-one" >
@@ -23,9 +28,12 @@ export default function HomePageHeader() {
                 <Row className="homepage-header-div-row-two" >
                     <Col className="homepage-header-div-row-two-col" >
                         <Navbar.Brand href="/login" className="homepage-header-div-row-two-col-brand" >
-                            <Link to="/login" >
-                                <h5>Sign Up/Sign In</h5>
-                            </Link>
+                            {login ?? ( 
+                                    <h5>Logout</h5>
+                            )}
+                            {logout ?? (
+                                    <h5>Signup/Login</h5>
+                            )}
                         </Navbar.Brand>
                     </Col>
                 </Row>

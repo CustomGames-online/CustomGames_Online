@@ -7,7 +7,8 @@ import Button from 'react-bootstrap/Button';
 
 import './../../styling/GeneralStyling.css';
 
-export default function HomePageBody() {
+export default function HomePageBody(props) {
+
     return(
         <Container className="homepage-body-container" >
             <Row className="homepage-body-container-row-one"  >
@@ -58,7 +59,13 @@ export default function HomePageBody() {
                         Instantly play games at Custom Game Shack! 
                         All of our classic games are 100% free, all day, every day!
                     </p>
-                    <Button className="homepage-body-continer-row-two-col-button" variant="primary" as="a" href="/login">Sign Up!</Button>
+                    { props.loggedin === true && (
+                        <Button className="homepage-body-continer-row-two-col-button" variant="primary" as="a" href="/gamelobby">Jump Into It</Button>
+                    )}
+                    { props.loggedin === false && (
+                        <Button className="homepage-body-continer-row-two-col-button" variant="primary" as="a" href="/login">Sign Up!</Button>
+                    )}  
+                    
                 </Col>
             </Row>
         </Container>
