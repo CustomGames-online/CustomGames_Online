@@ -53,9 +53,6 @@ export default function LoginBody() {
   const handleLoginSubmit = (e) => {
     e.preventDefault();
 
-    console.log( loginemail );
-    console.log( loginpass );
-
     fetch('http://customgames.online/api_login', {
       method: 'POST',
       headers: {

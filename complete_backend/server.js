@@ -96,8 +96,8 @@ app.post("/_login", (req,res) => {
                 userId: 12,
             }
 
-            token = jwt.sign(data, jwtSecretKey, { expiresin: '5h'});
-            res.json({ message: "done!", token: token });
+            token = jwt.sign(data, jwtSecretKey );
+            res.json({ message: "matched", token: token });
           } else {
             res.json({message: "not_matched"});
           }
