@@ -4,10 +4,7 @@ const bodyParser = require('body-parser')
 const { Client } = require('pg');
 const sgMail = require('@sendgrid/mail')
 const cors = require('cors');
-const dotenv = require('dotenv');
 const jwt = require('jsonwebtoken');
-
-dotenv.config();
 
 const client = new Client({
   user: 'postgres', 
