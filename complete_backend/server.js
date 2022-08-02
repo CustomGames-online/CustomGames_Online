@@ -78,7 +78,7 @@ app.post("/_register", (req, res) => {
 })
 
 app.post("/_login", (req,res) => {
-  let token = false;
+  let token = "";
   console.log(req.body);
   var conn_string = `SELECT * from user_info where email = '${req.body.email}';`;
   client.query(conn_string, (err, res_) => {
@@ -89,10 +89,21 @@ app.post("/_login", (req,res) => {
         var result = res_.rows[0];
         var stored_hash = result['hash_key'];
         bcrypt.compare(req.body.password, stored_hash, (err, result) => {
-          res.json({ message: "matched", token: stored_hash })
+          if (result) {
+            let jwtSecretKey = 'customgames';
+            let data = {
+                time: Date(),
+                userId: 12,
+            }
+
+            token = jwt.sign(data, jwtSecretKey, { expiresin: '5h'});
+            res.json({ message: "done!", token: token });
+          } else {
+            res.json({message: "not_matched"});
+          }
+          
         })
       }
-;
     };
   })
 })

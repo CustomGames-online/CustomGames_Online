@@ -10,7 +10,7 @@ export default class GameLobby extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggedOff: false
+      loggedin: true
     }
   }
 
@@ -27,20 +27,26 @@ export default class GameLobby extends React.Component {
       return res.json();
     }).then((result) => {
       if ( result['message']) {
-        this.setState({ isLoggedOff: false })
+        this.setState({ loggedin: true })
       } else {
-        this.setState({ isLoggedOff: true })
+        this.setState({ loggedin: false })
       }
     })
-  }
+
+    if ( localStorage.getItem("token") ) {
+      this.setState({ loggedin: true })
+    } else {
+      this.setState({ loggedin: false })
+      }
+    }
 
   render() {
 
     return(
       <div className="gamelobby-div">
-        {this.state.isLoggedOff && <Navigate to="/" />}
+        {this.state.loggedin === false && <Navigate to="/" />}
         <GameLobbyBody />
-        <HomePageFooter />
+        <HomePageFooter loggedin={this.state.loggedin}/>
       </div>
     );
   }
