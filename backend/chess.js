@@ -8,6 +8,8 @@ class Chess {
     this.playCount = 0
     this.colors = {}
     this.colors[player1] = null
+    this.player1count = 16;
+    this.player2count = 16;
   }
 
   createBoard(player1) {
@@ -30,7 +32,7 @@ class Chess {
             board[row][col] = {piece: 'bishop', owner: player1};
           } else if (col === 3){
             board[row][col] = {piece: 'queen', owner: player1};
-          }else if(col === 4){
+          } else if (col === 4){
             board[row][col] = {piece: 'king', owner: player1, moved: false};
           }
         }
@@ -310,9 +312,9 @@ class Chess {
           if (this.board[row][column] && this.board[row][column].owner !== player) {
             piecesFromBothPlayersLeft = true
           }*/
-    if (player2count === 0){
+    if (this.player2count === 0){
       return [true, 'no pieces left', this.player1];
-    } else if (player1count === 0){
+    } else if (this.player1count === 0){
       return [true, 'no pieces left', this.player2];
     }
           
