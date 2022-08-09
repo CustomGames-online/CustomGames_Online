@@ -17,7 +17,8 @@ const io = new Server(
   server,
   /* options */ {
     cors: {
-      origin: '*', // backend address
+      origin: 'http://customgames.online/websocket', // backend address
+      methods: ['GET', 'POST']
     },
   }
 );
