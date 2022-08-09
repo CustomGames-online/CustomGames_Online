@@ -110,11 +110,11 @@ class Chess {
         ) {
           if (from.x === to.x) {
             if (this.board[to.y][to.x]) {
-              console.log('can take pieces straight')
+              console.log('cannot take pieces straight')
               illegalMove = true
             }
           } else if (!this.board[to.y][to.x] || from.x + horizontalMovement !== to.x) {
-            console.log('can take own piece')
+            console.log('cannot take own piece')
             illegalMove = true
           }
         } else {
@@ -216,7 +216,7 @@ class Chess {
           }
           console.log(y)
           if(this.board[y][from.x]){
-            console.log('rook cannot skip the piece y')
+            console.log('rook cannot skip the y piece')
             illegalMove = true
             break;
           }
