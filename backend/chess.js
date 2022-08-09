@@ -112,7 +112,7 @@ class Chess {
               illegalMove = true
             }
           } else if (!this.board[to.y][to.x] || from.x + horizontalMovement !== to.x) {
-            console.log('can kill own piece')
+            console.log('can take own piece')
             illegalMove = true
           }
         } else {
@@ -282,12 +282,41 @@ class Chess {
 
   clearPiece(row, column)
   {
+    if (this.board[row][column].owner === player1){
+      player2count--;
+    }
+    else {
+      player1count--;
+    }
     this.board[row][column] = null;
   }
 
 
   checkWinningCondition()
   {
+    /*let player = null;
+    let piecesFromBothPlayersLeft = false;
+    
+    for (let row = 0; row < 8; row ++) {
+        for (let column = 0; column < 8; column++) {
+          if (!this.board[row][column]) {
+            continue;
+          } else {
+            verticalMovement = this.verticalMovement[this.board[row][column].owner];
+          }
+          if (!player && this.board[row][column]) {
+            player = this.board[row][column].owner
+          }
+          if (this.board[row][column] && this.board[row][column].owner !== player) {
+            piecesFromBothPlayersLeft = true
+          }*/
+    if (player2count === 0){
+      return [true, 'no pieces left', this.player1];
+    } else if (player1count === 0){
+      return [true, 'no pieces left', this.player2];
+    }
+          
+    
     return [false, null, null];
   }
 }
