@@ -7,6 +7,7 @@ const Socket = (props) => {
 
   useEffect(() => {
     const newSocket = io('http://customgames.online/websocket');
+    console.log(newSocket, "hello");
     setSocket(newSocket);
   }, []);
 

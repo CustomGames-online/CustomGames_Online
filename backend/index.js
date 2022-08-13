@@ -1,5 +1,14 @@
-import express from 'express';
-import http from 'http';
+const express = require("express")();
+const http = require("http").createServer(express);
+const option = {
+  cors: {
+    origin: 'http://customgames.online/gamelobby', // backend address
+    methods: ["GET", "POST"]
+  }
+};
+const io = require("socket.io")(http, options);
+
+
 import {
   saveGame,
   getGameQueue,
@@ -9,21 +18,11 @@ import {
   deleteGameByID,
 } from './db.js';
 import Game from './game.js';
-import { Server } from 'socket.io';
-
-const app = express();
-const server = http.createServer(app);
-const io = new Server(
-  server,
-  /* options */ {
-    cors: {
-      origin: '*', // backend address
-    },
-  }
-);
-// onConnection(socket) => socket.onMessage()
 
 io.on('connection', (socket) => {
+  if (socket) {
+    console.log('socket connected')
+  }
   socket.on('newGame', ({ gameType, user }) => {
     const game = getGameQueue(gameType); // get first game with pending equal to true and return it
     console.log(`Player ${socket.id} requested new game of ${gameType}.`);
@@ -34,13 +33,12 @@ io.on('connection', (socket) => {
       saveGame(newGame);
       return;
     }
-
     socket.join(game.room);
     game.startGame(socket.id);
     io.to(game.room).emit('game', game);
     updateGame(game);
   });
-
+    
   socket.on('play', ({ gameObj, player, movement }) => {
     const game = getGameByID(gameObj.id);
     try{
@@ -48,11 +46,10 @@ io.on('connection', (socket) => {
     }
     catch (error){
       console.error(error);
-    }
-    io.to(game.room).emit('game', game);
-    updateGame(game);
+      }
+      io.to(game.room).emit('game', game);
+      updateGame(game);
   });
-
   socket.on('leave', (gameID) => {
     const game = getGameByID(gameID);
     if (!game) {
@@ -61,7 +58,6 @@ io.on('connection', (socket) => {
     io.to(game.room).emit('close', 'User leaved the game.');
     deleteGameByID(gameID);
   });
-
   socket.on('disconnect', () => {
     const game = deleteGameByPlayer(socket.id);
     if (!game) {
@@ -70,6 +66,7 @@ io.on('connection', (socket) => {
     io.to(game.room).emit('close', 'User disconnected from the game.');
   });
 });
+  
 
 server.listen(6000, () => {
   console.log('listening on *:6000');

@@ -66,7 +66,13 @@ app.post("/_register", (req, res) => {
           }
 
           token = jwt.sign(data, jwtSecretKey);
-          res.json({ message: "done!", token: token });
+          res.json({ 
+            message: "registered", 
+            token: token, 
+            email: req.body.email, 
+            name: req.body.name,
+
+          });
         }
       })
     });
@@ -76,8 +82,8 @@ app.post("/_register", (req, res) => {
 
 app.post("/_login", (req,res) => {
   let token = "";
-  console.log(req.body);
   var conn_string = `SELECT * from user_info where email = '${req.body.email}';`;
+
   client.query(conn_string, (err, res_) => {
     if (err) 
       res.json({ message: "not_matched" })
@@ -85,6 +91,11 @@ app.post("/_login", (req,res) => {
       if (res_.rows.length > 0) {
         var result = res_.rows[0];
         var stored_hash = result['hash_key'];
+        var email = result['email'];
+        var name = result['user_name'];
+        var level = result['player_level'];
+        var xp = result['xp'];
+
         bcrypt.compare(req.body.password, stored_hash, (err, result) => {
           if (result) {
             let jwtSecretKey = 'customgames';
@@ -94,7 +105,14 @@ app.post("/_login", (req,res) => {
             }
 
             token = jwt.sign(data, jwtSecretKey );
-            res.json({ message: "matched", token: token });
+            res.json({ 
+              message: "matched", 
+              token: token, 
+              email: email, 
+              name: name,
+              level: level,
+              xp: xp
+            });
           } else {
             res.json({message: "not_matched"});
           }
@@ -187,8 +205,55 @@ app.post("/_reset", (req,res) => {
 
 })
 
+app.post('/_getfriends', (req,res) => {
+  var conn_string = `SELECT other_namee FROM friends_list WHERE email='${req.body.email}';`;
+  var friends = [];
+
+  client.query(conn_string, (err, res_) => {
+    if (err) 
+      res.json({ message: err });
+    else{
+      for ( var i=0; i<res_.rowCount; i++ ) {
+        var result = res_.rows[i];
+        friends.push(result['other_namee']);
+      }
+      res.json({ message: "grabbed_friends", friends: friends});
+    }
+  })
+});
+
+app.post('/_addfriend', (req,res) => {
+
+  
+  var conn_string = `SELECT email FROM user_info WHERE user_name='${req.body.other_name}';`;
+  var other_email = '';
+
+  client.query(conn_string, (err, res_) => {
+    if (err) 
+      res.json({ message: err });
+    else{
+      if (res_.rows.length > 0 ) {
+        var result = res_.rows[0];
+        other_email = result['email'];
+      } else {
+        res.json({ message: 'invalid_user'});
+      }
+    }
+  })
 
 
+    conn_string = `INSERT INTO friends_list VALUES('${req.body.email}', '${other_email}', '${req.body.other_name}');`;
+    client.query(conn_string, (err, res_) => {
+      if (err) {
+        res.json({ message: err });
+        console.log(err);
+      }
+      else{
+        console.log(res_)
+        res.json({ message: 'added_friend'});
+      }
+    })
+})
 
 
 app.listen(PORT, () => {

@@ -40,12 +40,15 @@ export default function LoginBody() {
     }).then((res) => {
       return res.json();
     }).then((result) => {
-      localStorage.setItem("token", result["token"]);
-      localStorage.setItem("local_name", name);
-      localStorage.setItem("local_email", email);
-      localStorage.setItem("local_level", "0");
-      localStorage.setItem("local_xp", "0");
-      setNavigate(true);
+      if ( result['message'] === 'registered') {
+        localStorage.setItem("token", result["token"]);
+        localStorage.setItem("local_name", result["name"]);
+        localStorage.setItem("local_email", result["email"]);
+        localStorage.setItem("local_level", 0);
+        localStorage.setItem("local_xp", 0);
+        setNavigate(true);
+      }
+
     })
 
   }
@@ -69,11 +72,12 @@ export default function LoginBody() {
     .then((result) => {
       console.log(result['message'])
         if( result['message'] === 'matched' ) {
+          console.log(result);
           localStorage.setItem("token", result["token"]);
-          localStorage.setItem("local_name", name);
-          localStorage.setItem("local_email", email);
-          localStorage.setItem("local_level", "0");
-          localStorage.setItem("local_xp", "0");
+          localStorage.setItem("local_name", result["name"]);
+          localStorage.setItem("local_email", result["email"]);
+          localStorage.setItem("local_level", result["level"]);
+          localStorage.setItem("local_xp", result["xp"]);
           setNavigate(true);
         } else {
           setFailedLogin(true);
