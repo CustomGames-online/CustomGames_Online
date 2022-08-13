@@ -2,7 +2,7 @@ const express = require("express")();
 const http = require("http").createServer(express);
 const option = {
   cors: {
-    origin: 'http://customgames.online/gamelobby', // backend address
+    origin: 'http://customgames.online/websocket', // backend address
     methods: ["GET", "POST"]
   }
 };

@@ -15,38 +15,43 @@ export default function HomePageBody(props) {
                 <Col className="homepage-body-container-row-one-col" >
                 <Carousel className="homepage-body-container-row-one-col-carousel" >
                     <Carousel.Item>
-                        <img
-                        className="d-block w-100"
-                        src="https://image.shutterstock.com/image-illustration/illustration-nature-landscape-with-green-600w-371178437.jpg"
-                        alt="First slide"
-                        height={700}
-                        />
-                        <Carousel.Caption>
-                            <h3>Play An Array Of Games!</h3>
-                        </Carousel.Caption>
+                        <a href="/login">
+                            <img
+                            className="d-block w-100"
+                            src="/chessboard_image.svg"
+                            alt="First slide"
+                            height={700}
+                            />
+                            <Carousel.Caption className="homepage-body-container-row-one-col-carousel-caption">
+                                <h1>Play Chess!</h1>
+                            </Carousel.Caption>
+                        </a>
                     </Carousel.Item>
                     <Carousel.Item>
-                        <img
-                        className="d-block w-100"
-                        src="https://image.shutterstock.com/shutterstock/photos/610968629/display_1500/stock-vector-chess-pieces-610968629.jpg"
-                        alt="Second slide"
-                        height={700}
-                        />
-
-                        <Carousel.Caption>
-                            <h3>Play Chess</h3>
-                        </Carousel.Caption>
+                        <a href="/login">
+                            <img
+                            className="d-block w-100"
+                            src="/checkers_image.svg"
+                            alt="First slide"
+                            height={700}
+                            />
+                            <Carousel.Caption className="homepage-body-container-row-one-col-carousel-caption">
+                                <h1>Play Checkers!</h1>
+                            </Carousel.Caption>
+                        </a>
                     </Carousel.Item>
                     <Carousel.Item>
-                        <img
-                        className="d-block w-100"
-                        src="https://image.shutterstock.com/shutterstock/photos/657571975/display_1500/stock-vector-checkers-game-isolated-on-white-background-vector-illustration-657571975.jpg"
-                        alt="Third slide"
-                        height={700}
-                        />
-                        <Carousel.Caption>
-                            <h3>Play Checkers</h3>
-                        </Carousel.Caption>
+                        <a href="/login">
+                            <img
+                            className="d-block w-100"
+                            src="/connect4_image.svg"
+                            alt="First slide"
+                            height={700}
+                            />
+                            <Carousel.Caption className="homepage-body-container-row-one-col-carousel-caption">
+                                <h1>Play connect4!</h1>
+                            </Carousel.Caption>
+                        </a>
                     </Carousel.Item>
                     </Carousel>
                 </Col>
@@ -56,11 +61,11 @@ export default function HomePageBody(props) {
                     <h1>Custom Games, In One Place</h1>
                     <p>
                         Our selection of Card Games, Board Games, Mahjong Games, and Casino Games is the best of the best.<br /> 
-                        Instantly play games at Custom Game Shack! 
+                        Instantly play games at Custom Games! 
                         All of our classic games are 100% free, all day, every day!
                     </p>
                     { props.loggedin === true && (
-                        <Button className="homepage-body-continer-row-two-col-button" variant="primary" as="a" href="/gamelobby">Jump Into It</Button>
+                        <Button className="homepage-body-continer-row-two-col-button" variant="primary" as="a" href="/gamelobby"><p>Jump Into It</p></Button>
                     )}
                     { props.loggedin === false && (
                         <Button className="homepage-body-continer-row-two-col-button" variant="primary" as="a" href="/login">Sign Up!</Button>
