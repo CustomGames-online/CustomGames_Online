@@ -99,6 +99,10 @@
     background-color: #040F0F;
 }
 
+.homepage-footer-container {
+    width: 100%;
+}
+
 .homepage-footer-container-row-one-col > h4 {
     margin-top: 10px;
     margin-bottom: 10px;
@@ -113,7 +117,7 @@
     border: .5px black solid;
 }
 
-.loginpage-body-container-row-one-col-two {
+.loginpage-body-container-row-one-col-one {
     text-align: center;
     border: .5px black solid;
 }
@@ -127,11 +131,11 @@
     margin-bottom: 50px;
 }
 
-.loginpage-body-container-row-one-col-two > h1 {
+.loginpage-body-container-row-one-col-one > h1 {
     margin-top: 30px;
 }
 
-.loginpage-body-container-row-one-col-two-form {
+.loginpage-body-container-row-one-col-one-form {
     margin-top: 50px;
     margin-bottom: 50px;
 }
@@ -144,3 +148,39 @@
 .gamelobby-body-div-row-one {
     height: 1000px;
 }
+
+.signup {
+    font-family: 'Chakra Petch', sans-serif;
+    background-color: #BA635D;
+}
+
+
+.signup-body-container-row-one-col-one {
+    text-align: center;
+    color: #040F0F;
+}
+
+
+.signup-body-container-row-one-col-two {
+    text-align: center;
+}
+
+.signup-body-container-row-one-col-two-container > h2 {
+    margin-top: 300px;
+    color: #040F0F;
+}
+
+.signup-body-container-row-one-col-one > h1 {
+    margin-top: 200px;
+}
+
+.signup-page-body-container-row-one-col-one-form-button {
+    margin-bottom: 220px;
+    margin-top: 20px;
+}
+
+.signup-body-container-row-one-col-two-form-group {
+    width: 60%;
+    margin-left: 167px;
+}
+  

@@ -68,7 +68,7 @@ export default function HomePageBody(props) {
                         <Button className="homepage-body-continer-row-two-col-button" variant="primary" as="a" href="/gamelobby"><p>Jump Into It</p></Button>
                     )}
                     { props.loggedin === false && (
-                        <Button className="homepage-body-continer-row-two-col-button" variant="primary" as="a" href="/login">Sign Up!</Button>
+                        <Button className="homepage-body-continer-row-two-col-button" variant="primary" as="a" href="/signup">Sign Up!</Button>
                     )}  
                     
                 </Col>

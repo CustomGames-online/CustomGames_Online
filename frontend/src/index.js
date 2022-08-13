@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import NoPage from "./pages/NoPage";
 import GameLobby from "./pages/GameLobby";
 import HomePageHeader from "./pages/components/HomePageHeader";
+import SignUp from './pages/SignUp';
 
 
 
@@ -23,6 +24,7 @@ export default class App extends React.Component {
           <HomePageHeader />
           <Routes>
             <Route path="/profile" element={<Profile />} />
+            <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
             <Route path="/gamelobby" element={<GameLobby />} />
             <Route path="/*" element={<NoPage />} />

@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { Navigate } from "react-router-dom";
 
-import LoginBody from "./components/LoginBody";
+import SignUpBody from "./components/SignUpBody";
 
 import './../styling/GeneralStyling.css';
 import HomePageFooter from "./components/HomePageFooter";
 
 
-class Login extends Component {
+class SignUp extends Component {
 
   constructor(props) {
     super(props);
@@ -24,12 +24,12 @@ class Login extends Component {
   
   render() {
     return (
-      <div className="container">
+      <div className="signup">
         { this.state.loggedin === true && (<Navigate to="/gamelobby" />)}
-        <LoginBody />
+        <SignUpBody />
         <HomePageFooter />
       </div>
     );
   }
 }
-export default Login;
+export default SignUp;

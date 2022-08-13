@@ -8,7 +8,9 @@ export default function HomePageHeader() {
         <div className="homepage-header-div" >
                 <Row className="homepage-header-div-row-one" >
                     <Col className="homepage-header-div-row-one-col" >
-                        <img src='/custom_games_logo.svg' alt="logo"/>
+                        <a href="/" className="homepage-header-div-row-one-col">
+                            <img src='/custom_games_logo.svg' alt="logo"/>
+                        </a>
                     </Col>
                 </Row>
 
