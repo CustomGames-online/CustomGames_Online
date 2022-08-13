@@ -1,4 +1,4 @@
-class Chess {
+class RandyChess {
   constructor(player1) {
     this.player1 = player1;
     this.board = this.createBoard(player1);
@@ -14,6 +14,18 @@ class Chess {
 
   createBoard(player1) {
     const board = [];
+    var piecelist = ["pawn", "pawn", "pawn", "pawn", "pawn", "pawn", "pawn", "pawn", "rook", "rook", "knight", "knight", "bishop", "bishop", "queen", "king"],
+    ranPieces = [],
+    i = piecelist.length,
+    j = 0;
+
+    while (i--) {
+      j = Math.floor(Math.random() * (i+1));
+      ranPieces.push(piecelist[j]);
+      piecelist.splice(j,1);
+    }
+    
+    rand = 0;
 
 
     for (let row = 0; row < 8; row++) {
@@ -22,23 +34,30 @@ class Chess {
         board[row][col] = null;
 
         if (row === 6) {
-          board[row][col] = {piece: 'pawn', owner: player1};
+          board[row][col] = {piece: piecelist[rand], owner: player1};
+          rand++;
         } else if (row === 7) {
           if (col === 0 || col === 7) {
-            board[row][col] = {piece: 'rook', owner: player1};
+            board[row][col] = {piece: piecelist[rand], owner: player1};
+            rand++;
           } else if (col === 1 || col === 6) {
-            board[row][col] = {piece: 'knight', owner: player1};
+            board[row][col] = {piece: piecelist[rand], owner: player1};
+            rand++;
           } else if (col === 2 || col === 5) {
-            board[row][col] = {piece: 'bishop', owner: player1};
+            board[row][col] = {piece: piecelist[rand], owner: player1};
+            rand++;
           } else if (col === 3){
-            board[row][col] = {piece: 'queen', owner: player1};
+            board[row][col] = {piece: piecelist[rand], owner: player1};
+            rand++;
           } else if (col === 4){
-            board[row][col] = {piece: 'king', owner: player1, moved: false};
+            board[row][col] = {piece: piecelist[rand], owner: player1, moved: false};
+            rand++;
           }
         }
       }
     }
-
+  
+    rand = 0;
     return board;
   }
 
@@ -50,26 +69,46 @@ class Chess {
 
   finishBoard(player2) {
     this.verticalMovement[player2] = 1;
+    
+    var piecelist = ["pawn", "pawn", "pawn", "pawn", "pawn", "pawn", "pawn", "pawn", "rook", "rook", "knight", "knight", "bishop", "bishop", "queen", "king"],
+    ranPieces = [],
+    i = piecelist.length,
+    j = 0;
+
+    while (i--) {
+      j = Math.floor(Math.random() * (i+1));
+      ranPieces.push(piecelist[j]);
+      piecelist.splice(j,1);
+    }
+    
+    rand = 0;
 
     for (let row = 0; row < 3; row++) {
       for (let col = 0; col < 8; col++) {
         if (row === 1) {
-          this.board[row][col] = {piece: 'pawn', owner: player2};
+          this.board[row][col] = {piece: piecelist[rand], owner: player2};
+          rand++;
         } else if (row === 0) {
           if (col === 0 || col === 7) {
-            this.board[row][col] = {piece: 'rook', owner: this.player2};
+            this.board[row][col] = {piece: piecelist[rand], owner: this.player2};
+            rand++;
           } else if (col === 1 || col === 6) {
-            this.board[row][col] = {piece: 'knight', owner: this.player2};
+            this.board[row][col] = {piece: piecelist[rand], owner: this.player2};
+            rand++;
           } else if (col === 2 || col === 5) {
-            this.board[row][col] = {piece: 'bishop', owner: this.player2};
+            this.board[row][col] = {piece: piecelist[rand], owner: this.player2};
+            rand++;
           } else if (col === 3){
-            this.board[row][col] = {piece: 'queen', owner: this.player2};
-          }else if(col === 4){
-            this.board[row][col] = {piece: 'king', owner: this.player2, moved: false};
+            this.board[row][col] = {piece: piecelist[rand], owner: this.player2};
+            rand++;
+          } else if(col === 4){
+            this.board[row][col] = {piece: piecelist[rand], owner: this.player2, moved: false};
+            rand++;
           }
         }
       }
     }
+    rand = 0;
   }
 
   play(player, playObj, turn) {
@@ -110,11 +149,11 @@ class Chess {
         ) {
           if (from.x === to.x) {
             if (this.board[to.y][to.x]) {
-              console.log('cannot take pieces straight')
+              console.log('can take pieces straight')
               illegalMove = true
             }
           } else if (!this.board[to.y][to.x] || from.x + horizontalMovement !== to.x) {
-            console.log('cannot take own piece')
+            console.log('can take own piece')
             illegalMove = true
           }
         } else {
@@ -216,7 +255,7 @@ class Chess {
           }
           console.log(y)
           if(this.board[y][from.x]){
-            console.log('rook cannot skip the y piece')
+            console.log('rook cannot skip the piece y')
             illegalMove = true
             break;
           }
@@ -323,4 +362,4 @@ class Chess {
   }
 }
 
-export default Chess;
+export default RandyChess;
