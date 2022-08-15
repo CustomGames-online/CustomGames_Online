@@ -6,7 +6,7 @@ const Sketch = (p5) => {
   p5.setup = () => {
     const sketchWidth = document.getElementById('canvas').offsetWidth;
     const sketchHeight = document.getElementById('canvas').offsetHeight;
-    let renderer = p5.createCanvas(sketchWidth, sketchHeight);
+    let renderer = p5.createCanvas(sketchHeight, sketchHeight);
     renderer.parent('canvas');
     image = p5.loadImage('/star.png');
     // p5.rectMode(p5.CORNERS);
@@ -21,8 +21,9 @@ const Sketch = (p5) => {
     removePiece,
     from,
     setFrom,
+    player,
   }) => {
-    if (!game) {
+    if (!game || game.pending) {
       p5.draw = () => {
         p5.fill('red');
         p5.textAlign(p5.CENTER, p5.CENTER);
@@ -75,7 +76,6 @@ const Sketch = (p5) => {
     };
 
     p5.draw = () => {
-      console.log(game)
       p5.windowResized = () => {
         const sketchWidth = document.getElementById('canvas').offsetWidth;
         const sketchHeight = document.getElementById('canvas').offsetHeight;
@@ -89,7 +89,7 @@ const Sketch = (p5) => {
       const switchColor = new ColorSwitching();
       let char = 65;
       let number = 8;
-      let row = 0;
+      let row = player === game.player1? 0 : 7;
       let column = 0;
 
       for (let y = 0; y < squareSize * 8; y += squareSize) {
@@ -133,7 +133,7 @@ const Sketch = (p5) => {
           column++;
         }
         column = 0;
-        row++;
+        player === game.player1 ? row++ : row--;
       }
     };
 
@@ -143,7 +143,9 @@ const Sketch = (p5) => {
       let w = (sizeConstraint - letterSpace) / 8;
       let h = (sizeConstraint - letterSpace) / 8;
       const x = Math.floor(p5.mouseX / w);
-      const y = Math.floor(p5.mouseY / h);
+      let y = Math.floor(p5.mouseY / h);
+
+      y = player === game.player1 ? y : Math.abs(y - 7)
 
       console.log(x, y, p5.mouseX, p5.mouseY);
       if (move.able && x < 8 && x > -1 && y < 8 && 7 > -1) {

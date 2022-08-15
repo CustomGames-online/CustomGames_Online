@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
+:root {
+    --dark-color-a: rgba(255, 102, 242, 0.8);
+    --dark-color-b: rgba(192, 115, 255, 0.63);
+    --light-color: #e6e9ff;
+    --success-color: #5cb85c;
+    --error-color: #d9534f;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.btn {
+    cursor: pointer;
+    padding: 5px 15px;
+    background: var(--light-color);
+    /*background: #BA625D;*/
+    color: var(--dark-color-a);
+    border: 0;
+    font-size: 17px;
+    /*-webkit-transition-duration: 0.4s; !* Safari *!*/
+    /*transition-duration: 0.4s;*/
+}
+/*.btnEffect:hover{*/
+/*    box-shadow: 0 8px 12px 0 rgba(0,0,0,0.24), 0 15px 48px 0 rgba(0,0,0,0.19);*/
+
+/*}*/
+.selectMode{
+    color: #fff;
+
+
+}
+
+/* Chat Page */
+
+/* Join Page */
+.container{
+    background-color: #BA625D;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.joinContainer {
+    max-width: 500px;
+    /*margin: 80px auto;*/
+    color: #fff;
+    /*background-color: #BA625D;*/
+
+}
+
+.joinHeader {
+    text-align: center;
+    padding: 20px;
+    background: var(--dark-color-a);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.joinMain {
+    padding: 30px 40px;
+    background: var(--dark-color-b);
+}
+
+.joinMain p {
+    margin-bottom: 20px;
+}
+
+.joinMain .formControl {
+    margin-bottom: 20px;
+}
+
+.joinMain label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.joinMain input[type='text'] {
+    font-size: 16px;
+    padding: 5px;
+    height: 40px;
+    width: 100%;
+}
+
+.joinMain .btn {
+    margin-top: 15px;
+    margin-bottom: 20px;
+    width: 100%;
+
+}
+
+.icons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.icon {
+    transition: all .3s ease-in-out;
+}
+
+.icon:hover {
+    transform: scale(1.1);
+    box-shadow: 1px 1px .5rem rgba(0,0,0,0.5);
+}
+
+.selected {
+    border: 2px solid blue;
+}
+
+@media (max-width: 700px) {
+    .chat-main {
+        display: block;
+    }
+
+}

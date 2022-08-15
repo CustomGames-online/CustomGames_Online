@@ -1,7 +1,13 @@
 * {
-  box-sizing: border-box;
+  box-sizing: inherit;
   padding: 0;
   margin: 0;
+  /*outline: 1px solid #f00 !important;*/
+}
+
+html, body, #root {
+  box-sizing: border-box;
+  height: 100%;
 }
 
 .App {

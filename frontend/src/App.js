@@ -1,19 +1,48 @@
+/* eslint-disable */
+
 import './App.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import SelectGame from './Components/SelectGame';
 import Board from './Components/Board';
 import Connect4 from './Components/Connect4/Sketch';
 import Chess from './Components/Chess/Sketch';
 import Checkers from './Components/Checkers/Sketch';
 import Socket from './Socket';
+import {useParams} from "react-router-dom";
+import Room from './Components/Room'
+import { Modes } from './utils/Constants'
+
 
 function Games() {
-  const [game, setGame] = useState(null);
+  const { gameType, id } = useParams()
+  const [game, setGame] = useState(gameType);
+  const [mode, setMode] = useState(Modes.Pending)
+  const [userName, setUserName] = useState('')
+  const [ID, setID] = useState(null)
 
   const selectGame = (selectedGame) => setGame(selectedGame);
+  const startGame = (game, mode, username, id) => {
+    setMode(mode)
+    setID(id)
+    setUserName(username)
+    setGame(game)
+  }
+  const resetGame = () => {
+    setGame(null)
+    setMode(Modes.Pending)
+    setID(null)
+    setUserName('')
+  }
+
+  useEffect(() => {
+    if (gameType && id !== null) {
+      setMode(Modes.Private)
+      setID(id)
+    }
+  }, [gameType, id])
 
   const render = () => {
-    if (game) {
+    if (game && mode !== Modes.Pending) {
       switch (game) {
         case 'chess':
           return (
@@ -21,7 +50,10 @@ function Games() {
               component={Board}
               sketch={Chess}
               gameType={game}
-              exit={() => setGame(null)}
+              mode={mode}
+              id={ID}
+              userName={userName}
+              exit={resetGame}
             />
           );
         case 'connect4':
@@ -30,7 +62,10 @@ function Games() {
               component={Board}
               sketch={Connect4}
               gameType={game}
-              exit={() => setGame(null)}
+              mode={mode}
+              id={ID}
+              userName={userName}
+              exit={resetGame}
             />
           );
         case 'checkers':
@@ -39,7 +74,10 @@ function Games() {
               component={Board}
               sketch={Checkers}
               gameType={game}
-              exit={() => setGame(null)}
+              mode={mode}
+              id={ID}
+              userName={userName}
+              exit={resetGame}
             />
           );
         default:
@@ -48,16 +86,19 @@ function Games() {
               component={Board}
               sketch={Connect4}
               gameType={game}
-              exit={() => setGame(null)}
+              mode={mode}
+              id={ID}
+              userName={userName}
+              exit={resetGame}
             />
           );
       }
     }
 
-    return <SelectGame selectGame={selectGame} />;
+    return <Room startGame={startGame}/>
   };
 
-  return <div>{render()}</div>;
+  return <>{render()}</>;
 }
 
 export default Games;
