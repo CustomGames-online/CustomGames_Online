@@ -1,5 +1,14 @@
-import express from 'express';
-import http from 'http';
+const express = require("express")();
+const http = require("http").createServer(express);
+const option = {
+  cors: {
+    origin: 'http://customgames.online/websocket', // backend address
+    methods: ["GET", "POST"]
+  }
+};
+const io = require("socket.io")(http, options);
+
+
 import {
   userJoin,
   getCurrentUser,
@@ -18,6 +27,7 @@ import {
   houseKeeping,
 } from './db.js';
 import Game from './game.js';
+
 import { Server } from 'socket.io';
 import formatMessage from "./formatMessage.js";
 
@@ -81,14 +91,13 @@ io.on('connection', (socket) => {
 
       return;
     }
-
     socket.join(game.room);
     game.startGame(user);
     game.player2ID = socket.id
     io.to(game.room).emit('game', game);
     updateGame(game);
   });
-
+    
   socket.on('play', ({ gameObj, player, movement }) => {
     const game = getGameByID(gameObj.id);
     try{
@@ -96,14 +105,15 @@ io.on('connection', (socket) => {
     }
     catch (error){
       console.error(error);
-    }
-    io.to(game.room).emit('game', game);
-    updateGame(game);
+      }
+      io.to(game.room).emit('game', game);
+      updateGame(game);
   });
 
   socket.on('leave', (id) => {
     console.log(`User left the game id: ${id}`)
     const game = getGameByID(id);
+
     if (!game) {
       console.log('No game found!')
       return;
@@ -111,6 +121,7 @@ io.on('connection', (socket) => {
     io.to(game.room).emit('close', 'User leaved the game.');
     deleteGameByID(id);
   });
+
 
   socket.on('message', ({room, message, player}) => {
     console.log(`User ${player} send message to room ${room}`)
@@ -139,6 +150,7 @@ io.on('connection', (socket) => {
     io.to(game.room).emit('close', 'User disconnected from the game.');
   })
 });
+  
 
 server.listen(3001, () => {
   console.log('listening on *:3001');

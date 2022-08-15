@@ -66,9 +66,9 @@ app.post("/_register", (req, res) => {
           }
 
           token = jwt.sign(data, jwtSecretKey);
-          res.json({
-            message: "registered",
-            token: token,
+          res.json({ 
+            message: "registered", 
+            token: token, 
             email: req.body.email,
             name: req.body.name,
 
@@ -105,9 +105,9 @@ app.post("/_login", (req,res) => {
             }
 
             token = jwt.sign(data, jwtSecretKey );
-            res.json({
-              message: "matched",
-              token: token,
+            res.json({ 
+              message: "matched", 
+              token: token, 
               email: email,
               name: name,
               level: level,
@@ -223,8 +223,6 @@ app.post('/_getfriends', (req,res) => {
 });
 
 app.post('/_addfriend', (req,res) => {
-
-
   var conn_string = `SELECT email FROM user_info WHERE user_name='${req.body.other_name}';`;
   var other_email = '';
 
@@ -241,18 +239,17 @@ app.post('/_addfriend', (req,res) => {
     }
   })
 
-
-  conn_string = `INSERT INTO friends_list VALUES('${req.body.email}', '${other_email}', '${req.body.other_name}');`;
-  client.query(conn_string, (err, res_) => {
-    if (err) {
-      res.json({ message: err });
-      console.log(err);
-    }
-    else{
-      console.log(res_)
-      res.json({ message: 'added_friend'});
-    }
-  })
+    conn_string = `INSERT INTO friends_list VALUES('${req.body.email}', '${other_email}', '${req.body.other_name}');`;
+    client.query(conn_string, (err, res_) => {
+      if (err) {
+        res.json({ message: err });
+        console.log(err);
+      }
+      else{
+        console.log(res_)
+        res.json({ message: 'added_friend'});
+      }
+    })
 })
 
 

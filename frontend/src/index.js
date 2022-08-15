@@ -20,7 +20,6 @@ export default class App extends React.Component {
 
 
         return (
-            <React.StrictMode >
                 <BrowserRouter>
                     <HomePageHeader />
                     <Routes>
@@ -33,7 +32,6 @@ export default class App extends React.Component {
                         <Route path="/" element={<HomePage />} />
                     </Routes>
                 </BrowserRouter>
-            </React.StrictMode>
         );
     }
 }
