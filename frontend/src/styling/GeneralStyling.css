@@ -1,5 +1,3 @@
-
-
 /* homepage header */
 
 .homepage-header-div {
@@ -55,6 +53,7 @@
 .homepage-body-container-row-one-col {
     border: .5px solid black;
 }
+
 .homepage-body-container-row-one-col-carousel {
     height: 700px;
 }
@@ -183,4 +182,3 @@
     width: 60%;
     margin-left: 167px;
 }
-  

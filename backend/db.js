@@ -7,7 +7,7 @@ export function saveGame(game) {
 export function getGameQueue(gameType) /* Game | undefined */ {
   console.log(games);
   const index = games.findIndex(
-    (game) => game.pending === true && game.gameType === gameType
+    (game) => game.pending === true && game.gameType === gameType && !game.private
   );
 
   if (index === -1) {
@@ -58,4 +58,21 @@ export function deleteGameByID(id) {
   }
 
   games.splice(index, 1);
+}
+
+export function deleteGameBySocket(id) {
+  const index = games.findIndex(
+      (game) => game.player1ID === id || game.player2ID === id
+  );
+
+  if (index === -1) {
+    return undefined;
+  }
+
+  const game = games.splice(index, 1);
+  return game[0];
+}
+
+export function houseKeeping() {
+  console.log(games)
 }

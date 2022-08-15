@@ -9,7 +9,7 @@ const Sketch = (p5) => {
   };
 
   p5.updateWithProps = ({ game, play }) => {
-    if (!game) {
+    if (!game || game.pending) {
       p5.draw = () => {
         p5.fill('red');
         p5.textAlign(p5.CENTER, p5.CENTER);
@@ -57,8 +57,9 @@ const Sketch = (p5) => {
       p5.stroke(0);
       p5.strokeWeight(2);
       p5.line(0, h, p5.width, h);
+      const zoomBugFix = 0.1;
 
-      for (let y = h; y < p5.height; y += h) {
+      for (let y = h + zoomBugFix; y < p5.height; y += h) {
         for (let x = 0; x < p5.width; x += w) {
           if (game.game.board[row][column]) {
             p5.stroke(0);
