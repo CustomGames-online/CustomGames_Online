@@ -1,7 +1,8 @@
 import React from "react";
 
-import GameLobbyBody from "./components/GameLobbyBody";
+// import GameLobbyBody from "./components/GameLobbyBody";
 import HomePageFooter from "./components/HomePageFooter";
+import Games from '../App'
 
 import { Navigate } from 'react-router-dom';
 
@@ -45,7 +46,7 @@ export default class GameLobby extends React.Component {
     return(
       <div className="gamelobby-div">
         {this.state.loggedin === false && <Navigate to="/" />}
-        <GameLobbyBody />
+        <Games />
         <HomePageFooter loggedin={this.state.loggedin}/>
       </div>
     );

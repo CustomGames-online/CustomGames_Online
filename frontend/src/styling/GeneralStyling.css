@@ -1,15 +1,7 @@
-* {
-    font-family: 'Anek Malayalam', sans-serif;
-}
-
 /* homepage header */
 
 .homepage-header-div {
     width: 100vw !important;
-}
-
-.homepage-header-div-row-one {
-    border-bottom: 1px solid grey;
 }
 
 .homepage-header-div-row-one-col {
@@ -17,16 +9,30 @@
     text-align: center;
 }
 
-.homepage-header-div-row-one-col-brand > h1 {
-    display: inline-flex;
-    font-size: 80px;
-    color: black;
+.homepage-body-container {
+    background-color: white;
 }
 
-.homepage-header-div-row-one-col-brand > img {
-    height: 95px;
-    width: 95px;
-    margin-top: -35px;
+.homepage-div {
+    background-color: #BA635D
+}
+
+
+.homepage-body-container-row-one-col-carousel-caption {
+    top: 0;
+    bottom: auto;
+}
+
+.homepage-header-div-row-one-col > img {
+
+    margin-top: -180px;
+    margin-bottom: -180px;
+}
+
+.homepage-body-container-row-one-col-carousel-caption > h1 {
+    color: #BA635D;
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 80px;
 }
 
 .homepage-header-div-row-two {
@@ -47,41 +53,60 @@
 .homepage-body-container-row-one-col {
     border: .5px solid black;
 }
+
 .homepage-body-container-row-one-col-carousel {
     height: 700px;
 }
 
-h3 {
-    color: black;
-}
+
 
 .homepage-body-container-row-two-col {
     text-align: center;
     border-top: .5px black solid;
     border-bottom: .5px black solid;
-    background-color: #DBCBD8;
+    background-color: #040F0F;
     border-left: .5px black solid;
     border-right: .5px black solid;
+    font-family: 'Chakra Petch', sans-serif;
 }
 
 .homepage-body-container-row-two-col > h1 {
     margin-top: 80px;
+    font-family: 'Chakra Petch', sans-serif;
+    color: #BA635D;
+}
+
+.homepage-body-container-row-two-col > p {
+    color: #BA635D;
+    font-family: 'Chakra Petch', sans-serif;
 }
 
 .homepage-body-continer-row-two-col-button {
-    margin-bottom: 70px;
+    margin-bottom: 25px;
+    margin-top: 5px;
+}
+
+.homepage-body-continer-row-two-col-button > p {
+    font-family: 'Chakra Petch', sans-serif;
+    color: #BA635D;
+
 }
 
 /* homepage footer */
 .homepage-footer-container-row-one-col {
     text-align: center;
-    background-color: #101935;
+    background-color: #040F0F;
+}
+
+.homepage-footer-container {
+    width: 100%;
 }
 
 .homepage-footer-container-row-one-col > h4 {
     margin-top: 10px;
     margin-bottom: 10px;
-    color: white;
+    font-family: 'Chakra Petch', sans-serif;
+    color: #BA635D;
 }
 
 /* login page body */
@@ -91,7 +116,7 @@ h3 {
     border: .5px black solid;
 }
 
-.loginpage-body-container-row-one-col-two {
+.loginpage-body-container-row-one-col-one {
     text-align: center;
     border: .5px black solid;
 }
@@ -105,11 +130,11 @@ h3 {
     margin-bottom: 50px;
 }
 
-.loginpage-body-container-row-one-col-two > h1 {
+.loginpage-body-container-row-one-col-one > h1 {
     margin-top: 30px;
 }
 
-.loginpage-body-container-row-one-col-two-form {
+.loginpage-body-container-row-one-col-one-form {
     margin-top: 50px;
     margin-bottom: 50px;
 }
@@ -121,4 +146,39 @@ h3 {
 
 .gamelobby-body-div-row-one {
     height: 1000px;
+}
+
+.signup {
+    font-family: 'Chakra Petch', sans-serif;
+    background-color: #BA635D;
+}
+
+
+.signup-body-container-row-one-col-one {
+    text-align: center;
+    color: #040F0F;
+}
+
+
+.signup-body-container-row-one-col-two {
+    text-align: center;
+}
+
+.signup-body-container-row-one-col-two-container > h2 {
+    margin-top: 300px;
+    color: #040F0F;
+}
+
+.signup-body-container-row-one-col-one > h1 {
+    margin-top: 200px;
+}
+
+.signup-page-body-container-row-one-col-one-form-button {
+    margin-bottom: 220px;
+    margin-top: 20px;
+}
+
+.signup-body-container-row-one-col-two-form-group {
+    width: 60%;
+    margin-left: 167px;
 }

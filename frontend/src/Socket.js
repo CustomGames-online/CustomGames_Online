@@ -9,7 +9,7 @@ const Socket = (props) => {
 
   useEffect(() => {
     // const newSocket = io('http://customgames.online/websocket');
-    const newSocket = io('localhost:3001');
+    const newSocket = io('3.84.103.141:3001');
     setSocket(newSocket);
   }, []);
 
