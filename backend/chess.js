@@ -8,6 +8,8 @@ class Chess {
     this.playCount = 0
     this.colors = {}
     this.colors[player1] = null
+    this.player1count = 16;
+    this.player2count = 16;
   }
 
   createBoard(player1) {
@@ -282,12 +284,25 @@ class Chess {
 
   clearPiece(row, column)
   {
+    if (this.board[row][column].owner === this.player1){
+      this.player2count--;
+    }
+    else {
+      this.player1count--;
+    }
+    
     this.board[row][column] = null;
   }
 
 
   checkWinningCondition()
   {
+    if (this.player2count === 0){
+      return [true, 'no pieces left', this.player1];
+    } else if (this.player1count === 0){
+      return [true, 'no pieces left', this.player2];
+    }
+    
     return [false, null, null];
   }
 }
