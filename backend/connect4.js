@@ -121,21 +121,18 @@ class Connect4 {
     }
 
     // Test Antidiagonal
-    for (let row = 0; row < 6; row++) {
-      for (let col = 0; col < 7; col++) {
-        console.log(row, col);
-        let test = this.board[row][col]; //0,4
-
-        let count = 0;
-        for (let k = 1; row - k > -1 && col + k < 7; k++) {
-          if (this.board[row - k][col + k] === test && test !== null) {
-            count++; // false
-            if (count === 3) {
-              return true;
+    for (let j = 0; j <= rows - 4; j++) {
+      for (let i = 0; i <= cols - 4; i++) {
+        const test = this.board[j][i];
+        if (test != null) {
+          let temp = true;
+          for (let k = 1; k < 4; k++) {
+            if (this.board[j - k][i + k] !== test) {
+              temp = false;
             }
-          } else {
-            count = 0;
-            test = this.board[row - k][col + k];
+          }
+          if (temp === true) {
+            return true;
           }
         }
       }
