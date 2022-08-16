@@ -1,21 +1,21 @@
-const express = require("express")();
-const http = require("http").createServer(express);
-const option = {
-  cors: {
-    origin: 'http://customgames.online/websocket', // backend address
-    methods: ["GET", "POST"]
-  }
-};
-const io = require("socket.io")(http, options);
+// const express = require("express")();
+// const http = require("http").createServer(express);
+// const option = {
+//   cors: {
+//     origin: 'http://customgames.online/websocket', // backend address
+//     methods: ["GET", "POST"]
+//   }
+// };
+// const io = require("socket.io")(http, options);
 
 
-import {
-  userJoin,
-  getCurrentUser,
-  userLeaves,
-  users,
-  userToRoom
-} from './users-chat.js';
+// import {
+//   userJoin,
+//   getCurrentUser,
+//   userLeaves,
+//   users,
+//   userToRoom
+// } from './users-chat.js';
 import {
   saveGame,
   getGameQueue,
@@ -29,6 +29,8 @@ import {
 import Game from './game.js';
 
 import { Server } from 'socket.io';
+import express from 'express'
+import http from 'http'
 import formatMessage from "./formatMessage.js";
 
 export const Modes = {
