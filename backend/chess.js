@@ -8,8 +8,6 @@ class Chess {
     this.playCount = 0
     this.colors = {}
     this.colors[player1] = null
-    this.player1count = 16;
-    this.player2count = 16;
   }
 
   createBoard(player1) {
@@ -32,7 +30,7 @@ class Chess {
             board[row][col] = {piece: 'bishop', owner: player1};
           } else if (col === 3){
             board[row][col] = {piece: 'queen', owner: player1};
-          } else if (col === 4){
+          }else if(col === 4){
             board[row][col] = {piece: 'king', owner: player1, moved: false};
           }
         }
@@ -110,11 +108,11 @@ class Chess {
         ) {
           if (from.x === to.x) {
             if (this.board[to.y][to.x]) {
-              console.log('cannot take pieces straight')
+              console.log('can take pieces straight')
               illegalMove = true
             }
           } else if (!this.board[to.y][to.x] || from.x + horizontalMovement !== to.x) {
-            console.log('cannot take own piece')
+            console.log('can kill own piece')
             illegalMove = true
           }
         } else {
@@ -209,22 +207,22 @@ class Chess {
             }
           }
         } else if(from.x === to.x) {
-        console.log('y', verticalMovement)
-        for(let y = from.y + verticalMovement; y !== to.y; y += verticalMovement){
-          if (y === to.y) {
-            break
+          console.log('y', verticalMovement)
+          for(let y = from.y + verticalMovement; y !== to.y; y += verticalMovement){
+            if (y === to.y) {
+              break
+            }
+            console.log(y)
+            if(this.board[y][from.x]){
+              console.log('rook cannot skip the piece y')
+              illegalMove = true
+              break;
+            }
           }
-          console.log(y)
-          if(this.board[y][from.x]){
-            console.log('rook cannot skip the y piece')
-            illegalMove = true
-            break;
-          }
+        } else {
+          console.log('rook can only move in one direction')
+          illegalMove = true
         }
-      } else {
-        console.log('rook can only move in one direction')
-        illegalMove = true
-      }
         break
       case 'king':
         if (from.y === 0 || from.y === 7) {
@@ -284,41 +282,12 @@ class Chess {
 
   clearPiece(row, column)
   {
-    if (this.board[row][column].owner === player1){
-      player2count--;
-    }
-    else {
-      player1count--;
-    }
     this.board[row][column] = null;
   }
 
 
   checkWinningCondition()
   {
-    /*let player = null;
-    let piecesFromBothPlayersLeft = false;
-    
-    for (let row = 0; row < 8; row ++) {
-        for (let column = 0; column < 8; column++) {
-          if (!this.board[row][column]) {
-            continue;
-          } else {
-            verticalMovement = this.verticalMovement[this.board[row][column].owner];
-          }
-          if (!player && this.board[row][column]) {
-            player = this.board[row][column].owner
-          }
-          if (this.board[row][column] && this.board[row][column].owner !== player) {
-            piecesFromBothPlayersLeft = true
-          }*/
-    if (this.player2count === 0){
-      return [true, 'no pieces left', this.player1];
-    } else if (this.player1count === 0){
-      return [true, 'no pieces left', this.player2];
-    }
-          
-    
     return [false, null, null];
   }
 }
