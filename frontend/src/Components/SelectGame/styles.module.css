@@ -60,6 +60,10 @@
     background-image: url("../../assets/gulper.png");
 }
 
+.randy_chess {
+    background-image: url("../../assets/randy_chess.png");
+}
+
 .icon {
     background-position: center;
     background-repeat: no-repeat;
