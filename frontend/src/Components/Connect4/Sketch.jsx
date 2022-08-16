@@ -87,7 +87,7 @@ const Sketch = (p5) => {
           p5.fill('red');
           p5.textAlign(p5.CENTER, p5.CENTER);
           p5.textSize(40);
-          p5.text('Game Over!', p5.width / 2, p5.height / 2 - 40);
+          p5.text(`Game Over, ${game.winner} won!`, p5.width / 2, p5.height / 2 - 40);
         };
         return;
       }
