@@ -110,7 +110,7 @@ class Connect4 {
           let temp = true;
           winner = this.board[j][i]
           for (let k = 1; k < 4; k++) {
-            if (this.board[j + k][i + k] !== test) {
+            if (this.board[j + k][i + k] !== this.board[j][i]) {
               temp = false;
             }
           }
@@ -127,7 +127,7 @@ class Connect4 {
       for (let col = 0; col < 7; col++) {
         console.log(row, col);
         let test = this.board[row][col]; //0,4
-        winner = this.board[row][col]
+        let winner = this.board[row][col];
 
         let count = 0;
         for (let k = 1; row - k > -1 && col + k < 7; k++) {
@@ -140,7 +140,7 @@ class Connect4 {
           } else {
             count = 0;
             test = this.board[row - k][col + k];
-            winner = this.board[row - k][col + k];
+            winner = this.board[row - k][col + k]
           }
         }
       }
@@ -151,8 +151,3 @@ class Connect4 {
 }
 
 export default Connect4;
-
-
-
-
-

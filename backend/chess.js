@@ -288,7 +288,7 @@ class Chess {
 
   checkWinningCondition()
   {
-    return [false, null, null];
+    return [false, null, null]; //
   }
 }
 
