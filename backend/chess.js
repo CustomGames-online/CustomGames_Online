@@ -8,8 +8,8 @@ class Chess {
     this.playCount = 0
     this.colors = {}
     this.colors[player1] = null
-    this.player1count = 16;
-    this.player2count = 16;
+    this.player1count = 15;
+    this.player2count = 15;
   }
 
   createBoard(player1) {
@@ -285,10 +285,10 @@ class Chess {
   clearPiece(row, column)
   {
     if (this.board[row][column].owner === player1){
-      player2count--;
+      this.player2count--;
     }
     else {
-      player1count--;
+      this.player1count--;
     }
     this.board[row][column] = null;
   }
