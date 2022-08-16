@@ -284,7 +284,7 @@ class Chess {
 
   clearPiece(row, column)
   {
-    if (this.board[row][column].owner === player1){
+    if (this.board[row][column].owner === this.player1){
       this.player2count--;
     }
     else {
