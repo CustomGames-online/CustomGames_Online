@@ -2,12 +2,14 @@ import { v4 as uuid } from 'uuid';
 import Connect4 from './connect4.js';
 import Checkers from './checkers.js';
 import Chess from './chess.js';
+import RandyChess from './randy_chess.js';
 
 export const gameTypes = {
   // enum
   Connect4: 'connect4',
   Checkers: 'checkers',
   Chess: 'chess',
+  RandyChess: 'randy_chess',
   Gulper: 'gulper',
 };
 
@@ -22,6 +24,9 @@ class Game {
         break;
       case gameTypes.Chess:
         this.game = new Chess(player);
+        break;
+      case gameTypes.RandyChess:
+        this.game = new RandyChess(player);
         break;
       default:
         this.game = null;
