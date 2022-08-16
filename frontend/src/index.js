@@ -23,6 +23,7 @@ export default class App extends React.Component {
                 <BrowserRouter>
                     <HomePageHeader />
                     <Routes>
+                        <Route path="/games" element={<Games />} /> // To jump login - must be removed
                         <Route path="/profile" element={<Profile />} />
                         <Route path="/signup" element={<SignUp />} />
                         <Route path="/login" element={<Login />} />
